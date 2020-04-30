@@ -1,0 +1,16 @@
+#!/bin/bash
+
+apt install -y vim git
+
+# For janus-gateway compilation
+apt install -y build-essential libtool automake pkg-config libjansson-dev \
+libconfig-dev libnice-dev libsrtp2-dev libglib2.0-dev libssl-dev git gengetopt \
+libwebsockets-dev cmake \
+libusrsctp-dev libmicrohttpd-dev libwebsockets-dev \
+librabbitmq-dev libnanomsg-dev libcurl4-openssl-dev libsofia-sip-ua-dev \
+libopus-dev libogg-dev liblua5.3-dev
+
+apt install -y golang-cfssl
+
+# For the web demo
+sudo apt install -y tmuxinator gstreamer1.0-tools gstreamer1.0-plugins-rtp

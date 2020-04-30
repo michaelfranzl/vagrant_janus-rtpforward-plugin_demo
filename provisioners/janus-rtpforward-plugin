@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd ~
+git clone https://github.com/michaelfranzl/janus-rtpforward-plugin.git
+cd janus-rtpforward-plugin
+git reset --hard
+git clean -dfx
+git checkout master
+git pull
+git checkout v0.9.2
+./bootstrap
+./configure --prefix=/home/vagrant/progs
+make
+make install  # installs into {prefix}/lib/janus/plugins

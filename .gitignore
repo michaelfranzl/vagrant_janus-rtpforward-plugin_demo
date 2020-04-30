@@ -1,0 +1,7 @@
+.vagrant
+*~
+*.tmp
+*swp
+*.pem
+*.csr
+*.json
