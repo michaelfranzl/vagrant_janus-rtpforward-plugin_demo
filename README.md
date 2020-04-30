@@ -24,4 +24,6 @@ Using a modern browser in your host OS:
 
 1. Go to http://localhost:8080
 2. Allow access to your media devices
-3. Observe the video in the terminal
+3. Observe the video in the terminal (see screenshot).
+
+![Screenshot of vagrant_janus-rtpforward-plugin_demo](screenshot.jpg)
