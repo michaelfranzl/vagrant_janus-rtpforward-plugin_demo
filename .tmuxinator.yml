@@ -1,54 +1,15 @@
-# /home/vagrant/.config/tmuxinator/demo.yml
-
 name: demo
 root: ~/
-
-# Optional tmux socket
-# socket_name: foo
-
-# Runs before everything. Use it to start daemons etc.
-# pre: sudo /etc/rc.d/mysqld start
-
-# Project hooks
-# Runs on project start, always
-# on_project_start: command
-# Run on project start, the first time
-# on_project_first_start: command
-# Run on project start, after the first time
-# on_project_restart: command
-# Run on project exit ( detaching from tmux session )
-# on_project_exit: command
-# Run on project stop
-# on_project_stop: command
-
-# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-# pre_window: rbenv shell 2.0.0-p247
-
-# Pass command line options to tmux. Useful for specifying a different tmux.conf.
-# tmux_options: -f ~/.tmux.mac.conf
-
-# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
-# tmux_command: byobu
-
-# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
-# startup_window: editor
-
-# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
-# startup_pane: 1
-
-# Controls whether the tmux session should be attached to automatically. Defaults to true.
-# attach: false
-
-# Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t demo
 
 windows:
   - demo:
       layout: main-vertical
-      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
-      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
-      # synchronize: after
       panes:
+        # Ouput ascii art from the received video stream
         - gst-launch-1.0   rtpbin name=rtpbin   udpsrc address=127.0.0.1 port=60000 caps="application/x-rtp, media=audio, encoding-name=OPUS, clock-rate=48000" ! rtpbin.recv_rtp_sink_0   udpsrc address=127.0.0.1 port=60001 caps="application/x-rtcp" ! rtpbin.recv_rtcp_sink_0   udpsrc address=127.0.0.1 port=60002 caps="application/x-rtp, media=video, encoding-name=VP8, clock-rate=90000" ! rtpbin.recv_rtp_sink_1   udpsrc address=127.0.0.1 port=60003 caps="application/x-rtcp" ! rtpbin.recv_rtcp_sink_1   rtpbin. ! rtpvp8depay ! vp8dec ! aasink     rtpbin. ! rtpopusdepay ! queue ! opusdec ! fakesink
+
+        # Run janus-gateway
         - ~/progs/bin/janus -D
-        - cd ~/janus-rtpforward-plugin/demo; http-server
+
+        # Run the demo web application, to be accessed from the host's browser
+        - env -C ~/janus-rtpforward-plugin/demo npx vite --host

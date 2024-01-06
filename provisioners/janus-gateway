@@ -2,19 +2,19 @@
 
 cd ~
 git clone https://github.com/meetecho/janus-gateway.git
+
 cd janus-gateway
 git reset --hard
 git clean -dfx
 git checkout master
 git pull
-git checkout v0.9.2
+git checkout v0.14.1
 ./autogen.sh
 ./configure --prefix=/home/vagrant/progs
 # --enable-websockets --enable-libsrtp2 --disable-unix-sockets --disable-mqtt --disable-rabbitmq --disable-rest --disable-all-handlers --disable-plugin-recordplay --disable-plugin-sip --disable-plugin-sipre --disable-plugin-nosip --disable-plugin-textroom --disable-plugin-videocall --disable-plugin-videoroom --disable-plugin-voicemail --disable-plugin-lua
 make
 make install
 make configs
-cd ..
 
 # Enable websockets
 file=/home/vagrant/progs/etc/janus/janus.transport.websockets.jcfg
@@ -27,6 +27,3 @@ perl -i -pe 's/#cert_pem = .*/cert_pem = "\/vagrant\/server.pem"/g' $file
 file=/home/vagrant/progs/etc/janus/janus.jcfg
 perl -i -pe 's/#cert_key = .*/cert_key = "\/vagrant\/server-key.pem"/g' $file
 perl -i -pe 's/#cert_pem = .*/cert_pem = "\/vagrant\/server.pem"/g' $file
-
-
-
